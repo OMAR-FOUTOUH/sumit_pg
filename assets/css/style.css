@@ -2092,7 +2092,7 @@ a
     cursor: pointer;
     font-size: 0.8em;
   }
-  @media screen and (min-width:900px) {
+  @media screen and (max-width:900px) {
     form>div input {
         width: 50vw;
     }
