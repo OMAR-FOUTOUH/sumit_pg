@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * navbar variables
@@ -86,3 +86,79 @@ document.addEventListener('DOMContentLoaded', () => {
   updateSlidePosition();
 });
 
+
+
+// highlights
+document.addEventListener('DOMContentLoaded', () => {
+  const shortText = document.querySelector('.short-text');
+  const longText = document.querySelector('.long-text');
+  const learnMore = document.querySelector('.learn-more');
+  const showLess = document.querySelector('.show-less');
+
+  learnMore.addEventListener('click', () => {
+      shortText.classList.add('hidden');
+      longText.classList.remove('hidden');
+  });
+
+  showLess.addEventListener('click', () => {
+      longText.classList.add('hidden');
+      shortText.classList.remove('hidden');
+  });
+});
+
+
+// Create an IntersectionObserver
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+      console.log(entry);
+      if (entry.isIntersecting) {
+          entry.target.classList.add('showing');
+      } else {
+          entry.target.classList.remove('showing');
+      }
+  });
+});
+
+// Select all elements with the class 'hidden' using document.querySelectorAll
+const hiddenElements = document.querySelectorAll('.hide');
+const hiddenElements2 = document.querySelectorAll('.hide2');
+// Observe each element in the NodeList
+hiddenElements.forEach((el) => observer.observe(el));
+hiddenElements2.forEach((el) => observer.observe(el));
+
+
+// 
+
+// Function to create a counter for a specific span element
+function createCounter(spanElement) {
+  // Retrieve the value attribute of the span element and convert it to a number
+  let upperLimit = parseInt(spanElement.getAttribute("value"), 10);
+
+  // Initialize a variable for the counter
+  let upto = 0;
+
+  // Define a function that updates the counter
+  function updated() {
+      // Update the inner HTML of the span element with the counter value
+      spanElement.innerHTML = "+"+upto;
+      // Increment the counter
+      upto++;
+      // Check if the counter has reached the upper limit
+      if (upto > upperLimit) {
+          // Clear the interval to stop the counter
+          clearInterval(counts);
+      }
+  }
+
+  // Set an interval to call the updated function every 100 milliseconds
+  let counts = setInterval(updated, 50);
+}
+
+// Retrieve all the span elements by their common class name (e.g., "counter-span")
+let spanElements = document.querySelectorAll('.counter-span');
+
+// Iterate through each span element
+spanElements.forEach((spanElement) => {
+  // Create a counter for the current span element
+  createCounter(spanElement);
+});
